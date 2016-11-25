@@ -1,0 +1,24 @@
+PODS:
+  - geos (3.5.0)
+  - GEOSwift/Core (0.5.1):
+    - geos (= 3.5.0)
+  - GEOSwift/MapboxGL (0.5.1):
+    - GEOSwift/Core
+    - Mapbox-iOS-SDK
+  - Mapbox-iOS-SDK (3.3.7)
+  - SwiftyJSON (3.1.3)
+
+DEPENDENCIES:
+  - GEOSwift/MapboxGL
+  - Mapbox-iOS-SDK
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  geos: e96c6ca3f3ce02d20feaa8d90d4af383e11e7198
+  GEOSwift: 7a3e070ee189ea27d3bcb6ba5244bf69d4f953aa
+  Mapbox-iOS-SDK: 142301fa63a6719cbd2eacc0f9e8bf36c65930d9
+  SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
+
+PODFILE CHECKSUM: ce83f7daa4a19a1a3abd05913d8b5b30705decec
+
+COCOAPODS: 1.0.1

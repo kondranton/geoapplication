@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dci-hg-RdR">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Geoapps" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +21,123 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ra-y2-yqX" customClass="MGLMapView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="563"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="zoomLevel">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ElO-qC-IFi">
+                                <rect key="frame" x="0.0" y="627" width="375" height="44"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <items>
+                                    <barButtonItem title="Clear" style="plain" id="Roj-ap-EoI">
+                                        <connections>
+                                            <action selector="clearBtnTap:" destination="BYZ-38-t0r" id="CrT-5j-wfb"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Relations" style="plain" id="dLZ-pm-Ic1">
+                                        <connections>
+                                            <segue destination="WyG-fg-obZ" kind="show" identifier="showRelations" id="1uh-nN-MJN"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="To Polygon" style="plain" id="M69-le-z9t">
+                                        <connections>
+                                            <action selector="toPolygonTap:" destination="BYZ-38-t0r" id="k3A-Cc-Yte"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="O7M-Vy-PSz">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="goH-XC-xF3">
+                                            <rect key="frame" x="241" y="7" width="121" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="Move"/>
+                                                <segment title="Drag"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="segmentControlSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="245-Xu-3yE"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ElO-qC-IFi" firstAttribute="top" secondItem="7ra-y2-yqX" secondAttribute="bottom" id="3ox-1V-Jtm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7ra-y2-yqX" secondAttribute="trailing" constant="-16" id="BKr-NF-Vhi"/>
+                            <constraint firstItem="ElO-qC-IFi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="BR6-Rr-keX"/>
+                            <constraint firstItem="7ra-y2-yqX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="KOH-7W-Ed3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ElO-qC-IFi" secondAttribute="trailing" constant="-16" id="U7I-1G-JR2"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ElO-qC-IFi" secondAttribute="bottom" constant="-4" id="Zl4-OF-DsD"/>
+                            <constraint firstItem="7ra-y2-yqX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="f2I-Mt-KnX"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="wwJ-LK-e5W"/>
+                    <connections>
+                        <outlet property="mapView" destination="7ra-y2-yqX" id="pGZ-Em-hlC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="964" y="37.331334332833585"/>
+        </scene>
+        <!--Relations View Controller-->
+        <scene sceneID="lf0-Vg-Uxm">
+            <objects>
+                <viewController id="WyG-fg-obZ" customClass="RelationsViewController" customModule="Geoapps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qdX-Qy-maO"/>
+                        <viewControllerLayoutGuide type="bottom" id="wIp-3n-RmA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3kG-fy-0yh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="NO RELATIONS FOUND" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FMG-Yh-Q9J">
+                                <rect key="frame" x="0.0" y="64" width="375" height="595"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wIp-3n-RmA" firstAttribute="top" secondItem="FMG-Yh-Q9J" secondAttribute="bottom" constant="8" id="35u-1B-LQB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FMG-Yh-Q9J" secondAttribute="trailing" constant="-16" id="ESD-fk-qun"/>
+                            <constraint firstItem="FMG-Yh-Q9J" firstAttribute="top" secondItem="qdX-Qy-maO" secondAttribute="bottom" id="H8y-SH-By7"/>
+                            <constraint firstItem="FMG-Yh-Q9J" firstAttribute="leading" secondItem="3kG-fy-0yh" secondAttribute="leadingMargin" constant="-16" id="uw6-lT-PMT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="FMG-Yh-Q9J" id="Kdq-qT-Ubu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xma-33-5bw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1752.8" y="36.431784107946029"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2KQ-CJ-TJQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dci-hg-RdR" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oat-r7-rDd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="cwk-lS-uKV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vzy-6r-tAr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="37.331334332833585"/>
         </scene>
     </scenes>
 </document>
