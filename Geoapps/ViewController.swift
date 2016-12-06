@@ -68,7 +68,7 @@ class ViewController: UIViewController, MGLMapViewDelegate {
   }
   func setUpMapView(){
     mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    mapView.setCenter(CLLocationCoordinate2D(latitude: 53.520486, longitude: 37.673541), zoomLevel: 6, animated: false)
+    mapView.setCenter(CLLocationCoordinate2D(latitude: 53.520486, longitude: 37.673541), zoomLevel: 1, animated: false)
     mapView.delegate = self
     
     // double tapping zooms the map, so ensure that can still happen
@@ -102,13 +102,14 @@ class ViewController: UIViewController, MGLMapViewDelegate {
         let newCoordinate = CLLocationCoordinate2D(latitude: coordinate.latitude - dlat, longitude: coordinate.longitude - dlong)
         newFigureCoordinates.append(newCoordinate)
       }
+      
       figureCoordinates = newFigureCoordinates
+      
       if figureAnnotation is Polygon? {
         buildAndDisplayPolygon()
       } else {
         buildAndDisplayPolyline()
       }
-      
       
       self.beginLocation = location
     case .ended:
@@ -156,8 +157,8 @@ class ViewController: UIViewController, MGLMapViewDelegate {
   }
   
   private func getFigureWKT()-> String?{
-    if let point = figureAnnotation as? MGLPointAnnotation{
-      return "POINT(\(point.coordinate.WKT))"
+    if figureCoordinates.count == 1{
+      return "POINT(\(figureCoordinates[0].WKT))"
     }
     
     var coordinateString = ""
@@ -206,23 +207,42 @@ class ViewController: UIViewController, MGLMapViewDelegate {
       var relationString = ""
       
       for country in countries{
-        let intersects = country.geometry?.intersects(geometry) ?? false
-        let crosses = country.geometry?.crosses(geometry) ?? false
-        let contains = country.geometry?.contains(geometry) ?? false
-        let covers = country.geometry?.covers(geometry) ?? false
-        let overlaps = country.geometry?.overlaps(geometry) ?? false
-        let within = country.geometry?.within(geometry) ?? false
-        let touches = country.geometry?.touches(geometry) ?? false
+        if let disjoint = country.geometry?.disjoint(geometry), !disjoint{
+          relationString.append("\(country.name) \n")
+        }
         
-        if intersects || crosses || contains ||
-          covers || overlaps || within || touches{
-          if let geometryWKT = country.geometry?.WKT {
-            relationString.append("\(country.name) \(geometryWKT) \n")
-          } else {
-            relationString.append("\(country.name)\n")
+        if let intersects = country.geometry?.intersects(geometry), intersects{
+          relationString.append("\t intersects drawn figure\n")
+        }
+        
+        if let crosses = country.geometry?.crosses(geometry), crosses{
+          relationString.append("\t crosses drawn figure\n")
+        }
+        if let contains = country.geometry?.contains(geometry), contains{
+          relationString.append("\t contains drawn figure\n")
+        }
+        if let covers = country.geometry?.covers(geometry), covers{
+          relationString.append("\t covers drawn figure\n")
+        }
+        if let overlaps = country.geometry?.overlaps(geometry), overlaps{
+          relationString.append("\t overlaps drawn figure\n")
+        }
+        if let within = country.geometry?.within(geometry), within{
+          relationString.append("\t is within drawn figure\n")
+        }
+        if let touches = country.geometry?.touches(geometry), touches{
+          relationString.append("\t touches drawn figure\n")
+        }
+        
+        if let disjoint = country.geometry?.disjoint(geometry), !disjoint{
+          if let intersectionWKT = country.geometry?.intersection(geometry).WKT{
+            relationString.append("\t \(intersectionWKT)\n")
           }
         }
+        
+        
       }
+      
       print(relationString)
       destination.text = relationString
       
